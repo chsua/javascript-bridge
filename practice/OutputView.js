@@ -16,7 +16,7 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
    */
   printMap(bridge) { // [[" O ", " O "],["   ","   "]]
     bridge = bridge.map( x => x.join("|"))
-    Console.print(`[${bridge[0]}]\n[${bridge[1]}]`)
+    Console.print(`[${bridge[0]}]\n[${bridge[1]}]\n`)
   },
 
   /**
@@ -30,6 +30,7 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
     Console.print(MESSAGE.END_FIRST) ;
     Console.print(this.printMap(bridge)) ;
     Console.print(`${MESSAGE.END_SECOND}${result}\n${MESSAGE.END_THIRD}${gameCount}`) ;
+    Console.close() ;
   },
 
 };

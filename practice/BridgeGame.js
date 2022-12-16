@@ -1,18 +1,18 @@
 const BridgeMaker = require("./BridgeMaker")
 const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator")
 const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
+const { Console } = require("@woowacourse/mission-utils");
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
  */
  class BridgeGame {
     #correctBridge
-    #gameCount
     #nowSpot
 
     constructor(num){
       this.#correctBridge = this.makeRandomBridge(num) ;
-      this.#gameCount = 1 ;
+      this.gameCount = 1 ;
       this.userBridge = [[],[]] ;
       this.#nowSpot = 0 ;
     }
@@ -23,7 +23,7 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
      * @param {number} num User에게 받은 다리의 길이
      */
     makeRandomBridge(num){
-      BridgeMaker.makeBridge(num, BridgeRandomNumberGenerator)
+      return BridgeMaker.makeBridge(num, BridgeRandomNumberGenerator.generate)
     }
   
     /**
@@ -32,7 +32,7 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
      * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     move(command) {    //전진, 실패, 성공
-      if (command === this.#correctBridge[this.#nowSpot]){
+      if (command == this.#correctBridge[this.#nowSpot]){
         if (this.isEnd()) return "success" ;
         this.#nowSpot++
         this.addBridge(command, "O")
@@ -47,10 +47,14 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
      * <p>
      * 재시작을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    retry() {
-      this.#nowSpot = 0 ;
-      this.userBridge = [[],[]] ;
-      this.#gameCount += 1 ;
+    retry(command) {
+      if (command === COMMAND.REGAME){
+        this.#nowSpot = 0 ;
+        this.userBridge = [[],[]] ;
+        this.gameCount += 1 ;
+        return true
+      } 
+      return false
     }
 
     isEnd(){
@@ -67,8 +71,6 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
       }
     }
 
-
-
   }
-  
+
   module.exports = BridgeGame;
