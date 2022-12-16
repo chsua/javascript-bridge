@@ -49,9 +49,11 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
   readGameCommand(callback) {
     MissionUtils.Console.readLine(MESSAGE.REQUEST_REGAME, command => {
       try {
-
+        this.gameCommandValidate(command) ;
+        callback(command) ;
       } catch (error) {
-
+        MissionUtils.Console.print(error);
+        this.readGameCommand(callback) ;
       }
     })
   }, 
