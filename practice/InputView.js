@@ -30,9 +30,11 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
   readMoving(callback) {
     MissionUtils.Console.readLine(MESSAGE.REQUEST_UPDOWN, move => {
       try {
-
+        this.movingValidate(move) ;
+        callback(move) ;
       } catch (error) {
-
+        MissionUtils.Console.print(error);
+        this.readMoving(callback) ;
       }
     })
   },
