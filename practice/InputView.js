@@ -8,14 +8,17 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
    * 다리의 길이를 입력받는다.
    */
   readBridgeSize(callback) {
-    try {
+    MissionUtils.Console.readLine(MESSAGE.REQUEST_LENGTH, size => {
       
-    } catch (error) {
+      try {
+        
+      } catch (error) {
 
-    }
+      }
+    })
   },
 
-  bridgeSizeValigate(size){
+  bridgeSizeValidate(size){
     if ( !Number.isInteger(size) ) throw new Error (ERROR.ERROR_BRIDGE_LENGTH) ;
     if ( size < BRIDGE.LENGTH_MIN || size > BRIDGE.LENGTH_MAX ) throw new Error (ERROR.ERROR_BRIDGE_LENGTH) ;
   },
