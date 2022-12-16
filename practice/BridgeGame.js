@@ -1,5 +1,6 @@
 const BridgeMaker = require("./BridgeMaker")
 const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator")
+const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
 
 /**
  * 다리 건너기 게임을 관리하는 클래스
@@ -7,12 +8,13 @@ const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator")
  class BridgeGame {
     #correctBridge
     #gameCount
-    #userBridge
+    #nowSpot
 
     constructor(num){
       this.#correctBridge = this.makeRandomBridge(num) ;
       this.#gameCount = 1 ;
-      this.#userBridge = [[],[]] ;
+      this.userBridge = [[],[]] ;
+      this.#nowSpot = 0 ;
     }
 
 
@@ -29,8 +31,15 @@ const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator")
      * <p>
      * 이동을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    move() {
-
+    move(command) {    //전진, 실패, 성공
+      if (command === this.#correctBridge[this.#nowSpot]){
+        if (this.isEnd()) return "success" ;
+        this.#nowSpot++
+        this.addBridge(command, "O")
+        return "go" ;
+      } 
+      this.addBridge(command, "X")
+      return "stop" ;
     }
   
     /**
@@ -39,12 +48,29 @@ const BridgeRandomNumberGenerator = require("./BridgeRandomNumberGenerator")
      * 재시작을 위해 필요한 메서드의 반환 값(return value), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     retry() {
-      
+
     }
 
     pushBridge(){
 
     }
+
+    isEnd(){
+      return (this.#nowSpot+1 === this.#correctBridge.length ) 
+    }
+
+    addBridge(command, xo ){
+      if (command === COMMAND.DOWN ) {
+        this.userBridge[0].push("   ")
+        this.userBridge[1].push(` ${xo} `)
+      } else {
+        this.userBridge[1].push("   ")
+        this.userBridge[0].push(` ${xo} `)
+      }
+    }
+
+
+
   }
   
   module.exports = BridgeGame;
