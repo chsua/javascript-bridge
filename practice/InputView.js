@@ -28,15 +28,17 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
    * 사용자가 이동할 칸을 입력받는다.
    */
   readMoving(callback) {
-    try {
+    MissionUtils.Console.readLine(MESSAGE.REQUEST_UPDOWN, move => {
+      try {
 
-    } catch (error) {
+      } catch (error) {
 
-    }
+      }
+    })
   },
 
   movingValidate(move){
-    
+    if ( move !== COMMAND.DOWN && move !== COMMAND.UP ) throw new Error (ERROR.ERROR_MOVE) ;
   },
 
   /**
