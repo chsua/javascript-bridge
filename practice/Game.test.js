@@ -1,5 +1,6 @@
 const InputView = require("./InputView") ;
 const BridgeMaker = require("./BridgeMaker") ;
+const BridgeGame = require("./BridgeGame") ;
 
 describe("Input_test", () => {
 
@@ -45,6 +46,22 @@ describe("BridgeMaker", () => {
             return 0
         }
         expect(BridgeMaker.makeBridge(4,returnZero)).toEqual(["D","D","D","D"])
+    })
+
+})
+
+describe("BridgeGame", () => {
+    test("유저 다리 추가 만들기",()=>{
+        const bridgeGame = new BridgeGame();
+        bridgeGame.addBridge("U", "O" )
+        expect(bridgeGame.userBridge).toEqual([[" O "],["   "]])
+    })
+
+    test("유저 다리 추가 만들기",()=>{
+        const bridgeGame = new BridgeGame();
+        bridgeGame.addBridge("D", "O" )
+        bridgeGame.addBridge("U", "X" )
+        expect(bridgeGame.userBridge).toEqual([["   "," X "],[" O ","   "]])
     })
 
 })
