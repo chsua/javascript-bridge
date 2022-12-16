@@ -9,11 +9,12 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
    */
   readBridgeSize(callback) {
     MissionUtils.Console.readLine(MESSAGE.REQUEST_LENGTH, size => {
-      
       try {
-        
+        this.bridgeSizeValidate(+size) ;
+        callback(size) ;
       } catch (error) {
-
+        MissionUtils.Console.print(error) ;
+        this.readBridgeSize(callback) ;
       }
     })
   },
