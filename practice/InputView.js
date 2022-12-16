@@ -47,15 +47,17 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
    * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
    */
   readGameCommand(callback) {
-    try {
+    MissionUtils.Console.readLine(MESSAGE.REQUEST_REGAME, command => {
+      try {
 
-    } catch (error) {
+      } catch (error) {
 
-    }
+      }
+    })
   }, 
 
   gameCommandValidate(command){
-
+    if ( command !== COMMAND.REGAME && command !== COMMAND.QUIT ) throw new Error (ERROR.ERROR_REGAME)
   },
 };
 
