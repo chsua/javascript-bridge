@@ -21,6 +21,14 @@ describe("Input_test", () => {
         }).toThrow("[ERROR]")
 
     })
+
+    test("gameCommand_예외처리", () => {
+        expect( () => {
+            InputView.gameCommandValidate("a") ;
+        }).toThrow("[ERROR]")
+
+    })
+
 })
 
 
