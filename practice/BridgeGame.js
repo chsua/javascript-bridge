@@ -33,9 +33,9 @@ const { Console } = require("@woowacourse/mission-utils");
      */
     move(command) {    //전진, 실패, 성공
       if (command == this.#correctBridge[this.#nowSpot]){
-        if (this.isEnd()) return "success" ;
-        this.#nowSpot++
         this.addBridge(command, "O")
+        this.#nowSpot++
+        if (this.isEnd()) return "success" ;
         return "go" ;
       } 
       this.addBridge(command, "X")
@@ -58,7 +58,7 @@ const { Console } = require("@woowacourse/mission-utils");
     }
 
     isEnd(){
-      return (this.#nowSpot+1 === this.#correctBridge.length ) 
+      return (this.#nowSpot === this.#correctBridge.length ) 
     }
 
     addBridge(command, xo ){

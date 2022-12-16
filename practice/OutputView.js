@@ -28,7 +28,7 @@ const { BRIDGE, COMMAND, MESSAGE, ERROR } = require("./Constant");
     let result = "실패"
     if ( boolean === true ) result = "성공"
     Console.print(MESSAGE.END_FIRST) ;
-    Console.print(this.printMap(bridge)) ;
+    this.printMap(bridge) ;
     Console.print(`${MESSAGE.END_SECOND}${result}\n${MESSAGE.END_THIRD}${gameCount}`) ;
     Console.close() ;
   },
